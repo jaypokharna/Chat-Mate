@@ -31,3 +31,35 @@ body {
     text-wrap: balance;
   }
 }
+
+
+/* Hide scrollbar */
+::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none;
+scrollbar-width: none;
+cursor:  pointer;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+  -ms-overflow-style: none;
+scrollbar-width: none;
+cursor:  pointer;
+}
+
+::-webkit-scrollbar-thumb {
+  display: none;
+  -ms-overflow-style: none;
+scrollbar-width: none;
+cursor:  pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  display: none;
+  -ms-overflow-style: none;
+scrollbar-width: none;
+cursor:  pointer;
+}
+
+
