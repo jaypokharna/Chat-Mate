@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Messages from "./Messages";
@@ -6,6 +7,7 @@ import { TbMessages } from "react-icons/tb";
 import useConverstation from "../zustand/useConversation";
 import { Phone } from 'lucide-react';
 import { Video } from 'lucide-react';
+import { AuthContext, useAuthContext } from "../Context/AuthContext";
 
 const MessageContainer = () => {
 
@@ -18,12 +20,14 @@ const MessageContainer = () => {
     }
   }, [setSelectedConversation])
 
+  const {authUser} = useAuthContext()
+
 
   return (
     <>
       <div className="md:min-w-[450px] flex flex-col overflow-x-hidden w-full">
         {!selectedConversation ? (
-          <NoChatSelected />
+          <NoChatSelected user={authUser}/>
         ) : (
           <>
             <div className=" flex items-center justify-between gap-3 px-5 py-2 mb-2 w-full border-b-2 border-white">
@@ -54,14 +58,19 @@ const MessageContainer = () => {
 
 export default MessageContainer;
 
-const NoChatSelected = () => {
+const NoChatSelected = ({user}) => {
   return (
     <>
       <div className="flex items-center justify-center w-full h-full">
         <div className="px-4 text-center sm:text-lg md:text-xl text-gray-200 font-semibold flex flex-col items-center gap-2">
-          <p>Welcome to ChatMate</p>
-          <p>Start a chat...</p>
-          <TbMessages className="text-3xl md:text-6xl text-center" />
+        <div className="avatar">
+                <div className="w-20 rounded-full">
+                  <img src={user.profilePicture} />
+                </div>
+              </div>
+          <p>Welcome,  {user.fullName}</p>
+          <p>Select a conversation to start a chat.</p>
+          <TbMessages className="text-3xl md:text-6xl text-center"/>
         </div>
       </div>
     </>
