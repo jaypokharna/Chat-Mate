@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
-'use client'
 import { createContext, useContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
