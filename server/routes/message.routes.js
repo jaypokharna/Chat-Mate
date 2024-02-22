@@ -4,7 +4,7 @@ import protectRoute from "../middleware/protectRoute.js";
 
 const router = express.Router();
 
-router.post("/:id", protectRoute ,getMessage)
+router.get("/:id", protectRoute ,getMessage)
 router.post("/send/:id", protectRoute ,sendMessage)
 
 

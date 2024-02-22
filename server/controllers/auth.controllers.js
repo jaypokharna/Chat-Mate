@@ -5,6 +5,7 @@ import generateTokenAndSetCookie from "../utils/generate.token.js";
 export const signup = async (req, res) => {
   try {
     const { fullName, username, password, confirmPassword, gender } = req.body;
+    console.log(fullName, username, password, confirmPassword, gender)
 
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "Passwords do not match" });
@@ -20,8 +21,8 @@ export const signup = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
 
-    const boyProfilePicture = `https://avatar.iran.liara.run/public/boy?username=${username}`;
-    const girlProfilePicture = `https://avatar.iran.liara.run/public/girl?username=${username}`;
+    const boyProfilePicture = `https://api.dicebear.com/7.x/adventurer-neutral/svg?seed=${username}`;
+    const girlProfilePicture = `https://api.dicebear.com/7.x/adventurer-neutral/svg?seed=${username}`;
 
     const newUser = await User({
       fullName,
@@ -35,8 +36,6 @@ export const signup = async (req, res) => {
     if (newUser) {
       // generate jwt token here
       generateTokenAndSetCookie(newUser._id, res);
-
-      // return res.status(201).json({message: 'User created
 
       await newUser.save();
       res.status(201).json({

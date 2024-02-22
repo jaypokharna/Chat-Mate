@@ -1,5 +1,11 @@
 {
     "CodeGPT.apiKey": "CodeGPT Plus Beta",
     "editor.defaultFoldingRangeProvider": "Blackboxapp.blackbox",
-    "editor.defaultFormatter": "Blackboxapp.blackbox"
+    "editor.defaultFormatter": "Blackboxapp.blackbox",
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }
