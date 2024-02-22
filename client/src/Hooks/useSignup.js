@@ -1,6 +1,8 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../Context/AuthContext";
+import { getRandomEmojie } from '../utils/emojies';
+
 
 const useSignup = () => {
 	const [loading, setLoading] = useState(false);
@@ -12,10 +14,11 @@ const useSignup = () => {
 
 		setLoading(true);
 		try {
+			const emojie = getRandomEmojie();
 			const res = await fetch("/api/auth/signup", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ fullName, username, password, confirmPassword, gender }),
+				body: JSON.stringify({ fullName, username, password, confirmPassword, gender , emojie}),
 			});
 
 			const data = await res.json();

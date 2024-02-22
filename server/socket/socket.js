@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import http from "http";
 import express from "express";
+import User from "../models/user.model.js";
 
 const app = express();
 
@@ -12,9 +13,9 @@ const io = new Server(server, {
   },
 });
 
-export const getReceiverSocketId = (receiverId)=>{
-    return userSocketMap[receiverId];
-}
+export const getReceiverSocketId = (receiverId) => {
+  return userSocketMap[receiverId];
+};
 
 const userSocketMap = {};
 
@@ -25,6 +26,26 @@ io.on("connection", (socket) => {
   if (userId != "undefined") userSocketMap[userId] = socket.id; //Maintain a map of users to their sockets
 
   io.emit("getOnlineUsers", Object.keys(userSocketMap));
+
+  socket.on("searching", async (data) => {
+    try {
+      // Search users whose username contains the entire data term as a substring
+      const searchedUser = await User.findOne({ username: data });
+
+      // Emit the searched users back to the client-side
+      socket.emit("searchedusers", searchedUser);
+    } catch (error) {
+      console.error("Error searching users:", error);
+    }
+  });
+
+  socket.on("typing", (receiverId, senderId) => {
+    console.log(getReceiverSocketId(receiverId));
+    console.log("Sender - ", senderId);
+    socket
+      .to(getReceiverSocketId(receiverId))
+      .emit("isTyping", senderId);
+  });
 
   socket.on("disconnect", () => {
     console.log("User Disconnected -", socket.id);

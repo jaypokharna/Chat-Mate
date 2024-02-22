@@ -1,45 +1,58 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import { IoSearchSharp } from "react-icons/io5";
 import useConversation from '../zustand/useConversation';
-import useGetConversations from '../Hooks/useGetConversations';
 import toast from 'react-hot-toast';
+import { useSocketContext } from '../Context/SocketContext';
 
 const SearchInput = () => {
+  const [search, setSearch] = useState("");
+  const { socket } = useSocketContext();
+  const { setSelectedConversation } = useConversation();
 
-  const [search, setSearch] = useState("")
+  useEffect(() => {
+    const handleSearch = (searchedUser) => {
+      if (searchedUser) {
+        setSelectedConversation(searchedUser);
+        setSearch('');
+      } else {
+        toast.error('No such user found!');
+      }
+    };
 
-  const {setSelectedConversation} = useConversation();
-  const {conversations} = useGetConversations();
+    socket.on("searchedusers", handleSearch);
 
-  const handleSubmit=(e)=>{
+    return () => {
+      socket.off("searchedusers", handleSearch);
+    };
+  }, [socket, setSelectedConversation]);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if(!search) return
-    if(search.length<3){return toast.error( "Search must be at least 3 characters long")}
-    console.log(conversations)
-    const conversataion = conversations.find((c)=>
-  c.fullName.toLowerCase().includes(search.toLowerCase()))
-  if(conversataion){
-    setSelectedConversation(conversataion)
-    setSearch('')
+    if (!search) return;
+    if (search.length < 3) {
+      return toast.error("Search must be at least 3 characters long");
+    }
 
-  }else{
-    toast.error('No such user found!') 
-  }
-  }
+    socket.emit("searching", search);
+  };
 
   return (
     <>
-    <form className='flex items-center gap-2' onSubmit={handleSubmit}>
-        <input type="text" placeholder='Search...' className='input input-bordered rounded-full'
-        value={search}
-        onChange={(e)=>setSearch(e.target.value)}/>
+      <form className='flex items-center gap-2' onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder='Search...'
+          className='input input-bordered rounded-full'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
         <button type='submit' className='btn btn-circle bg-sky-500 text-white'>
-        <IoSearchSharp className='w-6 h-6 outline-none'/>
+          <IoSearchSharp className='w-6 h-6 outline-none' />
         </button>
-    </form>
+      </form>
     </>
-  )
-}
+  );
+};
 
-export default SearchInput
+export default SearchInput;

@@ -8,7 +8,7 @@ const Home = () => {
     <>
       <div className="flex  sm:h-full md:h-full w-full rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 border border-slate-300/10 ">
 
-        <Sidebar/>
+        <Sidebar />
 
        <MessageContainer/>
 

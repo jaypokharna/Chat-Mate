@@ -4,8 +4,8 @@ import generateTokenAndSetCookie from "../utils/generate.token.js";
 
 export const signup = async (req, res) => {
   try {
-    const { fullName, username, password, confirmPassword, gender } = req.body;
-    console.log(fullName, username, password, confirmPassword, gender)
+    const { fullName, username, password, confirmPassword, gender , emojie } = req.body;
+    console.log(fullName, username, password, confirmPassword, gender , emojie)
 
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "Passwords do not match" });
@@ -31,6 +31,7 @@ export const signup = async (req, res) => {
       gender,
       profilePicture:
         gender === "male" ? boyProfilePicture : girlProfilePicture,
+        emojie,
     });
 
     if (newUser) {
@@ -43,6 +44,7 @@ export const signup = async (req, res) => {
         fullName: newUser.fullName,
         username: newUser.username,
         profilePicture: newUser.profilePicture,
+        emojie : user.emojie,
       });
     } else {
       res.staus(400).json({ error: "Invalid user data" });
@@ -76,6 +78,7 @@ export const login = async (req, res) => {
         fullName: user.fullName,
         username: user.username,
         profilePicture: user.profilePicture,
+        emojie : user.emojie,
       });
     } else {
       res.status(400).json({ error: "User not found !" });

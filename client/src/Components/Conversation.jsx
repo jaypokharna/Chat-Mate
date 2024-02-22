@@ -4,7 +4,7 @@ import React from 'react'
 import useConversation from '../zustand/useConversation'
 import { useSocketContext } from '../Context/SocketContext';
 
-const Conversation = ({conversationn,emojie,lastIdx}) => {
+const Conversation = ({conversationn,lastIdx,status}) => {
 
     const {selectedConversation , setSelectedConversation} = useConversation();
     const isSelected = selectedConversation?._id === conversationn._id
@@ -25,8 +25,9 @@ const Conversation = ({conversationn,emojie,lastIdx}) => {
         <div className='flex flex-col flex-1'>
             <div className='flex gap-3 justify-between'>
                 <p className='font-bold text-gray-200 '>{conversationn.fullName}</p>
-                <span className='text-xl'>{emojie}</span>
+                <span className='text-xl'>{conversationn.emojie}</span>
             </div>
+            <div className='text-xs'>{status}</div>
         </div>
     </div>
     {!lastIdx && <div className='divider m-0 py-0 h-1'/>}

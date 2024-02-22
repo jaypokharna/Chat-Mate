@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema({
     profilePicture : {
         type : String,
         default : ""
+    },
+    emojie : {
+        type : String
     }
 
 },{timestamps : true});
