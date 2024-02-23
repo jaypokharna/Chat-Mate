@@ -7,11 +7,13 @@ import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import connectToMongoDb from "./db/connectToMongoDb.js";
 import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 
 const PORT = process.env.PORT || 8000;
 
 dotenv.config();
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}))
 app.use(cookieParser());
 app.use(
   cors({
