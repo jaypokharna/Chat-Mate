@@ -1,7 +1,6 @@
 {
   "name": "reactjs",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "server": "nodemon server/index.js",
@@ -31,5 +30,6 @@
   },
   "devDependencies": {
     "daisyui": "^4.7.2"
-  }
+  },
+  "description": ""
 }
