@@ -8,7 +8,7 @@ import userRoutes from "./routes/user.routes.js";
 import connectToMongoDb from "./db/connectToMongoDb.js";
 import cookieParser from "cookie-parser";
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 
 dotenv.config();
 app.use(express.json());
