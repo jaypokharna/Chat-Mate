@@ -25,7 +25,8 @@ const userSchema = new mongoose.Schema({
         default : ""
     },
     emojie : {
-        type : String
+        type : String,
+        default : ""
     }
 
 },{timestamps : true});

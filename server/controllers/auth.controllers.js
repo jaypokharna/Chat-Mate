@@ -44,7 +44,7 @@ export const signup = async (req, res) => {
         fullName: newUser.fullName,
         username: newUser.username,
         profilePicture: newUser.profilePicture,
-        emojie : user.emojie,
+        emojie : newUser.emojie,
       });
     } else {
       res.staus(400).json({ error: "Invalid user data" });
