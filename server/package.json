@@ -2,10 +2,10 @@
   "name": "reactjs",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "server": "nodemon server.js",
-    "start": "node server.js",
+    "server": "nodemon index.js",
+    "start": "node index.js",
     "build": "npm install"
   },
   "type": "module",
